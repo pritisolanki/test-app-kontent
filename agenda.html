@@ -15,13 +15,14 @@
 <body>
   <div id="app-header" class="navbar navbar-expand-lg">
     <ul class="navbar-nav mr-auto">
-        <li class="nav-item active"><a href="#" id="main-title" class="nav-link"></a></li>
-        <li class="nav-item"><a href="agenda.html" class="nav-link">Agenda</a></li>
+        <li class="nav-item"><a id="main-title" href="index.html" class="nav-link"></a></li>
+        <li class="nav-item active"><a href="agenda.html" class="nav-link">Agenda</a></li>
         <li class="nav-item"><a href="venue.html" class="nav-link">Venue</a></li>
     </ul>
   </div>
   <div id="app" class="container">
     <div class="p-3 mb-2 bg-info text-white"><h3 id="agendaTitle" style="text-align: center;"></h3></div>
+    <div class="p-3 mb-2 row" id="agendaDetails"></div>
   </div>
 
   <!-- Include core functions -- code you'll use in multiple places in the app -->
@@ -29,10 +30,10 @@
 
   <!-- Include script for the list of articles -- code that is unique to this list -->
   <script src="event.js"></script>
+  <footer id="footerDetails">
+    <div class="row">
+        
+    </div>
+  </footer>
 </body>
-<footer id="footerDetails">
-  <div class="row">
-      <div id="contactDiv"></div>
-  </div>
-</footer>
 </html>

@@ -11,6 +11,9 @@ body {
 body a {
   color: rgb(219, 60, 0);
 }
+.pr-10 {
+  padding-right: 10 !important;
+}
 
 #app {
   margin-left: auto;
