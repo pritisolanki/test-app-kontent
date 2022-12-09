@@ -6,6 +6,7 @@
   <!-- Include the Delivery JS SDK  -->
   <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@kontent-ai/delivery-sdk@12.0.2/dist/bundles/kontent-delivery.umd.min.js"></script>
+  <script src="https://kit.fontawesome.com/e0941ee72c.js" crossorigin="anonymous"></script>
   <title>Kontent.ai JavaScript sample app</title>
   <link href="style.css" rel="stylesheet" />
   <!-- CSS only -->
@@ -23,16 +24,66 @@
   <div id="app" class="container">
     <div class="p-3 mb-2 bg-info text-white"><h3 id="agendaTitle" style="text-align: center;"></h3></div>
   </div>
-
+  <footer id="footerDetails" class="text-center text-lg-start bg-light text-muted">
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <!-- Left -->
+      <div class="me-5 d-none d-lg-block">
+        <span>Get connected with us on social networks:</span>
+      </div>
+      <!-- Left -->
+  
+      <!-- Right -->
+      <div>
+        <a href="" class="me-4 text-reset" id="facebookLink">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="" class="me-4 text-reset" id="twitterLink">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </div>
+      <!-- Right -->
+    </section>
+    <section>
+      <div class="row mt-3">
+        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+          <p id="locationInfo"><i class="fas fa-home me-3"></i></p>
+        </div>
+        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase fw-bold mb-4">Registration</h6>
+          <p id="registrationEmail">
+            <i class="fas fa-envelope me-3"></i>
+          </p>
+          <p id="registrationPhone"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+        </div>
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <h6 class="text-uppercase fw-bold mb-4">Sponsor</h6>
+            <p id="sponsorEmail">
+              <i class="fas fa-envelope me-3"></i>
+            </p>
+            <p id="sponsorPhone"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+          </div>
+      </div>
+    </div>
+    </section>
+    <div class="row mt-3">
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4" id="sponsor1"></div>
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4" id="sponsor2"></div>
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4" id="sponsor3"></div>
+      <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4" id="sponsor4"></div>
+    </div>
+    <!-- Copyright -->
+  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+    © 2022 Copyright:
+    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Kontent.ai</a>
+  </div>
+  <!-- Copyright -->
+  </footer>
   <!-- Include core functions -- code you'll use in multiple places in the app -->
   <script type="text/javascript" src="core.js"></script>
 
   <!-- Include script for the list of articles -- code that is unique to this list -->
   <script src="event.js"></script>
 </body>
-<footer id="footerDetails">
-  <div class="row">
-      <div id="contactDiv"></div>
-  </div>
-</footer>
+
 </html>

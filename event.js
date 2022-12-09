@@ -24,43 +24,53 @@ deliveryClient
   .type('event')
   .toPromise()
   .then(response => {
-    response.data.items.forEach(item => {
-      console.log(item)
-      const page = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
-      let mainTitle = document.getElementById('main-title');
-      mainTitle.innerText = item.system.name
+    console.log(response)
+    const linkedItems = window['kontentDelivery'].linkedItemsHelper.convertLinkedItemsToArray(response.data.linkedItems)
 
-
-     const agendaTitle = document.getElementById('agendaTitle');
-     agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
-
-     const sponsorEmail = item.elements.contact.linkedItems[0].elements.email.value;
-     const sponsorPhonenumber = item.elements.contact.linkedItems[0].elements.phone_number.value;
-     const sponsor = createElement('div','col','innerHTML',sponsorEmail+' '+sponsorPhonenumber)
-
-     const registrationEmail = item.elements.contact.linkedItems[1].elements.email.value;
-     const registrationPhonenumber = item.elements.contact.linkedItems[1].elements.phone_number.value;
-     const registration = createElement('div','col','innerHTML',registrationEmail+' '+registrationPhonenumber)
-
-      if(page == 'index.html')
-      {
-        const introMessage = item.elements.intro_message.value
-        
-        const resolvedRichTextObject = window['kontentDelivery'].createRichTextObjectResolver({
-          element: introMessage,
-          linkedItems: window['kontentDelivery'].linkedItemsHelper.convertLinkedItemsToArray(item.elements.intro_message.linkedItems),          
+    const fetchLinkedItem = (contentItem) => {
+      for(row of linkedItems){
+        if(row.system.codename == contentItem && row.system.type == 'video_content'){
+          return({'url':row.elements.video.value[0].url,
+            'type':row.elements.video.value[0].type})
+        }
+      }
+    }
+    const richTextElement = response.data.items[0].elements.intro_message;
+    const resolvedRichTextObject = window['kontentDelivery'].createRichTextHtmlResolver().resolveRichText({
+          element: richTextElement,
+          linkedItems: window['kontentDelivery'].linkedItemsHelper.convertLinkedItemsToArray(response.data.linkedItems),
           contentItemResolver: (contentItem) => {
-            if (contentItem && contentItem.system.type === 'video_content') {
+            if (contentItem) {
+              const dtl = fetchLinkedItem(contentItem)
               return {
-                contentItemHtml: `<video controls src="${contentItem.elements.value}"></video>`
+                contentItemHtml: `<video controls><source  src="${dtl.url}" type="${dtl.type}"></video>`
               };
             }
             return {
               contentItemHtml: `<div>Unsupported type ${contentItem.system.type}</div>`
             };
           }
-        });
-        const introElement = createElement('div','jumbotron','innerHTML',introMessage)
+    });    
+    resolveIntroMessage = resolvedRichTextObject.html;
+    const locationData = response.data.linkedItems.venue_details.elements.location.value;
+    const locationInfoElement = document.getElementById('locationInfo')
+    locationInfoElement.innerText = locationData
+
+    response.data.items.forEach(item => {
+      const page = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
+      let mainTitle = document.getElementById('main-title');
+      mainTitle.innerText = item.system.name
+
+      const agendaTitle = document.getElementById('agendaTitle');
+      agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
+  
+
+      if(page == 'index.html')
+      {
+        const introMessage = item.elements.intro_message.value
+        //const resolvedRichTextHtml = resolvedRichText.html;
+        console.log(resolvedRichTextObject)
+        const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
         app.appendChild(introElement)
       }else if(page == 'agenda.html'){
         //agenda
@@ -72,16 +82,26 @@ deliveryClient
       }else{
         //venue
         const drivingDirection = item.elements.venue.linkedItems[0].elements.driving_directions.value;
-        const location =item.elements.venue.linkedItems[0].elements.location.value;
+        
         const maps =item.elements.venue.linkedItems[0].elements.maps.value[0].url;
         const venueName = item.elements.venue.linkedItems[0].elements.name.value;
         const publicTransport = item.elements.venue.linkedItems[0].elements.public_transportation.value;
         const venue_hero_image = item.elements.venue.linkedItems[0].elements.venue_hero_image.value[0].url;
       }
+      
+      const regEmail = response.data.linkedItems.contact___registration___general_questions.elements.email.value;
+      const regPhone = response.data.linkedItems.contact___registration___general_questions.elements.phone_number.value;
+      const registrationInfoElement = document.getElementById('registrationEmail')
+      registrationInfoElement.innerText = regEmail
+      const registrationPhoneElement = document.getElementById('registrationPhone')
+      registrationPhoneElement.innerText = (regPhone)
+
+      const sponsorEmail = response.data.linkedItems.sponsorship_information.elements.email.value;
+      const sponsorPhone = response.data.linkedItems.sponsorship_information.elements.phone_number.value;
+      const sponsorInfoElement = document.getElementById('sponsorEmail')
+      sponsorInfoElement.innerText = regEmail
+      const sponsorPhoneElement = document.getElementById('sponsorPhone')
+      sponsorPhoneElement.innerText = (sponsorPhone)
+
     });
-  });
-
-
-
-
-  
+  });  
