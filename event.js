@@ -35,6 +35,10 @@ deliveryClient
         }
       }
     }
+
+    const fetchSponsor = (sponsorItem) =>{
+      return (`<p><a href="${response.data.linkedItems[sponsorItem].elements.url.value}"><img src="${response.data.linkedItems[sponsorItem].elements.logo.value[0].url}" ></a></p>`)
+    }
     const richTextElement = response.data.items[0].elements.intro_message;
     const resolvedRichTextObject = window['kontentDelivery'].createRichTextHtmlResolver().resolveRichText({
           element: richTextElement,
@@ -56,6 +60,20 @@ deliveryClient
     const locationInfoElement = document.getElementById('locationInfo')
     locationInfoElement.innerText = locationData
 
+    
+    
+    const sponsorList = response.data.items[0].elements.sponsor.value;
+    let i = 1
+    for(sponsor of sponsorList)
+    {
+      sDetails = fetchSponsor(sponsor)
+      keyC = `sponsor${i}`
+      const sponsorElem = document.getElementById(keyC);
+      console.log(sponsorElem)
+      sponsorElem.innerHTML=sDetails
+      i = i + 1
+    }
+    
     response.data.items.forEach(item => {
       const page = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
       let mainTitle = document.getElementById('main-title');
@@ -64,12 +82,8 @@ deliveryClient
       const agendaTitle = document.getElementById('agendaTitle');
       agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
   
-
       if(page == 'index.html')
       {
-        const introMessage = item.elements.intro_message.value
-        //const resolvedRichTextHtml = resolvedRichText.html;
-        console.log(resolvedRichTextObject)
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
         app.appendChild(introElement)
       }else if(page == 'agenda.html'){
@@ -99,7 +113,7 @@ deliveryClient
       const sponsorEmail = response.data.linkedItems.sponsorship_information.elements.email.value;
       const sponsorPhone = response.data.linkedItems.sponsorship_information.elements.phone_number.value;
       const sponsorInfoElement = document.getElementById('sponsorEmail')
-      sponsorInfoElement.innerText = regEmail
+      sponsorInfoElement.innerText = sponsorEmail
       const sponsorPhoneElement = document.getElementById('sponsorPhone')
       sponsorPhoneElement.innerText = (sponsorPhone)
 
