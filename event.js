@@ -158,12 +158,32 @@ deliveryClient
       }
       else{
         //venue
-        const drivingDirection = item.elements.venue.linkedItems[0].elements.driving_directions.value;
-        
-        const maps = item.elements.venue.linkedItems[0].elements.maps.value[0].url;
+        venueEle = document.getElementById('venueMainDiv')
         const venueName = item.elements.venue.linkedItems[0].elements.name.value;
-        const publicTransport = item.elements.venue.linkedItems[0].elements.public_transportation.value;
+        const venueNameEle = createElement('h3','row pb-5','innerHTML',venueName)
+        venueEle.appendChild(venueNameEle)
+
         const venue_hero_image = item.elements.venue.linkedItems[0].elements.venue_hero_image.value[0].url;
+        const heroImg = createElement('img','row pb-5','src',venue_hero_image)
+        venueEle.appendChild(heroImg)
+
+        const drivingDirection = item.elements.venue.linkedItems[0].elements.driving_directions.value;
+        const drivingEle = createElement('div','row pb-5','innerHTML',drivingDirection)
+        const drivingTitle = createElement('h3','row','innerHTML','Driving Direction')
+        venueEle.appendChild(drivingTitle)
+        venueEle.appendChild(drivingEle)
+
+        const maps = item.elements.venue.linkedItems[0].elements.maps.value[0].url;
+        const mapsEle = createElement('img','row  pb-5','src',maps)
+        const maptitle = createElement('h3','row','innerHTML','Maps')
+        venueEle.appendChild(maptitle)
+        venueEle.appendChild(mapsEle)
+
+        const publicTransport = item.elements.venue.linkedItems[0].elements.public_transportation.value;
+        const publicTEle = createElement('div','row','innerHTML',publicTransport)
+        const parkingInfo = createElement('h3','row','innerHTML','Parking Information')
+        venueEle.appendChild(parkingInfo)
+        venueEle.appendChild(publicTEle)
       }
       const regEmail = response.data.linkedItems.contact___registration___general_questions.elements.email.value;
       const regPhone = response.data.linkedItems.contact___registration___general_questions.elements.phone_number.value;
