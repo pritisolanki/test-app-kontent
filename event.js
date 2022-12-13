@@ -37,6 +37,22 @@ deliveryClient
         }
       }
     }
+    const fetchLinkedItemByType = (contentType) => {
+      contentTypeList = []
+
+      for(row of linkedItems){
+        if(row.system.type == 'speaker'){
+          contentTypeList.push({
+            "name": row.system.name,
+            "company" : row.elements.company.value,
+            "bio" : row.elements.bio.value,
+            "photo" : row.elements.photo.value[0].url,
+            "designation" : row.elements.title.value,
+          })
+        }
+      }
+      if(contentTypeList.length != 0) return contentTypeList
+    }
     const getSpeaker = (speakerName) =>{
       return ({
         "name": response.data.linkedItems[speakerName].system.name,
@@ -155,10 +171,31 @@ deliveryClient
           
           sessionRow = sessionRow + `<p>${spkitem} </p></div>`
           const sessionEle = createElement('div','row','innerHTML',sessionRow)
-          console.log(sessionEle)
           agendaDetailsEle.appendChild(sessionEle)
         }
         
+      }
+      else if(page == 'speaker.html'){
+        //getSpeaker = (speakerName)
+        agendaTitle.innerText='Industry Experts';
+        const speakerMainDivEle = document.getElementById('speakerMainDiv')
+        industrySpeakerList = fetchLinkedItemByType('speaker')
+        console.log(industrySpeakerList)
+        speakerHTMl = '';
+
+        for(row of industrySpeakerList)
+        {
+          speakerHTMl = speakerHTMl + `<div class="card mx-1">
+          <img class="card-img-top" src="${row.photo}" alt="Card image cap" width="100%">
+            <div class="card-body">
+              <h4 class="card-title">${row.name}</h4>
+              <h6 class="card-title">${row.designation} - ${row.company}</h6>
+              <p class="card-text">${row.bio}</p>
+            </div>
+           </div><br/>`
+        } 
+        const speakerEle = createElement('div','row','innerHTML',speakerHTMl)
+        speakerMainDivEle.appendChild(speakerEle)
       }
       else{
         //venue

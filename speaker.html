@@ -6,7 +6,6 @@
   <!-- Include the Delivery JS SDK  -->
   <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@kontent-ai/delivery-sdk@12.0.2/dist/bundles/kontent-delivery.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>  
   <title>Kontent.ai JavaScript sample app</title>
   <link href="style.css" rel="stylesheet" />
   <!-- CSS only -->
@@ -17,15 +16,15 @@
   <div id="app-header" class="navbar navbar-expand-lg">
     <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a id="main-title" href="index.html" class="nav-link"></a></li>
-        <li class="nav-item active"><a href="agenda.html" class="nav-link">Agenda</a></li>
-        <li class="nav-item"><a href="speaker.html" class="nav-link">Speaker</a></li>
-        <li class="nav-item"><a href="venue.html" class="nav-link">Venue</a></li>
+        <li class="nav-item "><a href="agenda.html" class="nav-link">Agenda</a></li>
+        <li class="nav-item active"><a href="speaker.html" class="nav-link">Speaker</a></li>
+        <li class="nav-item "><a href="venue.html" class="nav-link">Venue</a></li>
     </ul>
   </div>
   <div id="app" class="container">
-    <div class="p-3 mb-2 bg-info text-white"><h3 id="agendaTitle" style="text-align: center;"></h3></div>
-    <div class="p-3 mb-2 row" id="agendaHeroShotImage"></div>
-    <div class="p-3 mb-2 row" id="agendaDetails"></div>
+    <div class="row p-3 mb-2 bg-info text-white"><h3 id="agendaTitle" style="text-align: center;">Industry Experts</h3></div>
+    <div class="row" id="speakerMainDiv">
+    </div>
   </div>
   <row id="sponsor" class="row mt-3">
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
@@ -65,14 +64,14 @@
           <p id="registrationEmail">
             <i class="fas fa-envelope me-3"></i>
           </p>
-          <p id="registrationPhone"><i class="fas fa-phone me-3"></i> </p>
+          <p id="registrationPhone"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
         </div>
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <h6 class="text-uppercase fw-bold mb-4">Sponsor</h6>
             <p id="sponsorEmail">
               <i class="fas fa-envelope me-3"></i>
             </p>
-            <p id="sponsorPhone"><i class="fas fa-phone me-3"></i></p>
+            <p id="sponsorPhone"><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
           </div>
       </div>
     </div>
