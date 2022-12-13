@@ -6,6 +6,7 @@
   <!-- Include the Delivery JS SDK  -->
   <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@kontent-ai/delivery-sdk@12.0.2/dist/bundles/kontent-delivery.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>  
   <title>Kontent.ai JavaScript sample app</title>
   <link href="style.css" rel="stylesheet" />
   <!-- CSS only -->
@@ -22,6 +23,7 @@
   </div>
   <div id="app" class="container">
     <div class="p-3 mb-2 bg-info text-white"><h3 id="agendaTitle" style="text-align: center;"></h3></div>
+    <div class="p-3 mb-2 row" id="agendaHeroShotImage"></div>
     <div class="p-3 mb-2 row" id="agendaDetails"></div>
   </div>
   <row id="sponsor" class="row mt-3">

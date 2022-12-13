@@ -23,6 +23,7 @@ deliveryClient
   .items()
   .type('event')
   .depthParameter(3)
+  .orderByAscending('elements.title')
   .toPromise()
   .then(response => {
     console.log(response)
@@ -45,13 +46,17 @@ deliveryClient
         "designation" : response.data.linkedItems[speakerName].elements.title.value,
       })
     }
-    const fetchSessionItem = (sessionName) =>{
-      
+    const getRoom = (roomCodeName) =>{
+        return ({
+          "name": response.data.linkedItems[roomCodeName].elements.name.value,
+          "capacity": response.data.linkedItems[roomCodeName].elements.capacity.value,
+          "services": response.data.linkedItems[roomCodeName].elements.services.value,
+          "style": response.data.linkedItems[roomCodeName].elements.style.value[0].name
+        })
+    }
+    const fetchSessionItem = (sessionName) =>{      
       for(row of linkedItems){
         if(row.system.type == 'session_list' && row.system.codename == sessionName){
-          
-          const sessionTopic = row.elements.topic.linkedItems[0].elements.name.value
-          const sessionTopicDtl = row.elements.topic.linkedItems[0].elements.topic_details.value
           const sessionSpeakerKey = row.elements.speaker.value
             
           let speakerList = []
@@ -59,21 +64,18 @@ deliveryClient
             spk = getSpeaker(speaker)
             speakerList.push(spk)
           }
-          const sessionroom = row.elements.room.value[0]
-          const sessionStartDate= row.elements.date_n_time.value
-          const sessionEndDate = row.elements.end_date___time.value
+          const sessionroomDetails = getRoom(row.elements.room.value[0])
           return({
-            "topic":sessionTopic,
-            "topic_details": sessionTopicDtl,
+            "topic":row.elements.topic.linkedItems[0].elements.name.value,
+            "topic_details": row.elements.topic.linkedItems[0].elements.topic_details.value,
             "speaker": speakerList,
-            "room": sessionroom,
-            "start":sessionStartDate,
-            "end":sessionEndDate
+            "room": sessionroomDetails.name,
+            "start":row.elements.date_n_time.value,
+            "end":row.elements.end_date___time.value
           })
         }
       }
     }
-
 
     const fetchSponsor = (sponsorItem) =>{
       return (`<p align="center"><a href="${response.data.linkedItems[sponsorItem].elements.url.value}"><img src="${response.data.linkedItems[sponsorItem].elements.logo.value[0].url}" width="200" height="200"></a></p>`)
@@ -124,34 +126,36 @@ deliveryClient
         app.appendChild(introElement)
       }else if(page == 'agenda.html'){
         //agenda
-        const agendaDetailsEle = document.getElementById('agendaDetails')
+        const agendaHeroShotImageEle = document.getElementById('agendaHeroShotImage')
+
         const introPhoto = item.elements.photo.value[0].url
         const SectionImgElement = createElement('img','row','src',introPhoto)
         SectionImgElement.setAttribute('align','right')
-        agendaDetailsEle.appendChild(SectionImgElement)
+        agendaHeroShotImageEle.appendChild(SectionImgElement)
 
         const agendaDay = response.data.linkedItems.full_agenda___denver_conf.elements.day.value
         const agendaDetails = response.data.linkedItems.full_agenda___denver_conf.elements.sessions.value
         const sessionList = [];
-        
+        const agendaDetailsEle = document.getElementById('agendaDetails')
         for(row of agendaDetails){
           sessionlist = fetchSessionItem(row)
           const startTime = new Date(sessionlist['start']).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
           const endTime =new Date(sessionlist['end']).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
   
           let sessionRow = `
-          <h3>${sessionlist['topic']}</h3>
-          <h5>${startTime} - ${endTime} @${sessionlist['room']}</h5>
-          <div style="padding-left:20px">${sessionlist['topic_details']}</div>`;
-          console.log(sessionRow)
+          <div class="alert alert-primary">${sessionlist['topic']}</div>
+          <div class="pl-5">
+          <h6 class="card-title">${startTime} - ${endTime} @${sessionlist['room']}</h6>
+          <div class="card-text">${sessionlist['topic_details']}`;
           let spkitem = ''
           for (item of sessionlist['speaker'])
           {
             spkitem = spkitem + `${item.name}`+ ' ';
           }
           
-          sessionRow = sessionRow + `<p>${spkitem} </p>`
+          sessionRow = sessionRow + `<p>${spkitem} </p></div>`
           const sessionEle = createElement('div','row','innerHTML',sessionRow)
+          console.log(sessionEle)
           agendaDetailsEle.appendChild(sessionEle)
         }
         
