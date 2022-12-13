@@ -18,6 +18,15 @@ element.setAttribute('class', classToAdd);
 
   return element;
 };
+function phoneFormat(num) {
+  num = num.toString().replace(/^0+/, '');
+  num = num.toString().replace(/[^0-9]/, '');
+  if (num.length == 11) {
+      if (num.substr(0, 1) == 1) num = "+1 " + num.substr(1, 3) + "-" + num.substr(4, 3) + "-" + num.substr(7, 4);
+      else num = "+" + num.substr(0, 2) + " " + num.substr(2, 3) + "-" + num.substr(5, 3) + "-" + num.substr(8, 3);
+  }
+  return num;
+}
 
 deliveryClient
   .items()
@@ -139,7 +148,9 @@ deliveryClient
       if(page == 'index.html')
       {
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
-        app.appendChild(introElement)
+        mainDivEle = document.getElementById('mainDiv')
+        mainDivEle.appendChild(introElement)
+
       }else if(page == 'agenda.html'){
         //agenda
         const agendaHeroShotImageEle = document.getElementById('agendaHeroShotImage')
@@ -180,7 +191,7 @@ deliveryClient
         agendaTitle.innerText='Industry Experts';
         const speakerMainDivEle = document.getElementById('speakerMainDiv')
         industrySpeakerList = fetchLinkedItemByType('speaker')
-        console.log(industrySpeakerList)
+        
         speakerHTMl = '';
 
         for(row of industrySpeakerList)
@@ -231,14 +242,14 @@ deliveryClient
       const registrationInfoElement = document.getElementById('registrationEmail')
       registrationInfoElement.innerText = regEmail
       const registrationPhoneElement = document.getElementById('registrationPhone')
-      registrationPhoneElement.innerText = (regPhone)
+      registrationPhoneElement.innerText = phoneFormat(regPhone)
 
       const sponsorEmail = response.data.linkedItems.sponsorship_information.elements.email.value;
       const sponsorPhone = response.data.linkedItems.sponsorship_information.elements.phone_number.value;
       const sponsorInfoElement = document.getElementById('sponsorEmail')
       sponsorInfoElement.innerText = sponsorEmail
       const sponsorPhoneElement = document.getElementById('sponsorPhone')
-      sponsorPhoneElement.innerText = (sponsorPhone)
+      sponsorPhoneElement.innerText = phoneFormat(sponsorPhone)
 
       const fb = response.data.linkedItems.facebook.elements.url.value;
       const facebookLinkElement = document.getElementById('facebookLink');

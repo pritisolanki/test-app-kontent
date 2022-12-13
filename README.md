@@ -16,6 +16,7 @@ My playground to explore how to integrate Kontent.ai JS SDK. I am using Bootstra
 
 #### Things Explored
 Following is the feature list explored and integrated
+- [x] Delivery SDK integration
 - [x] Rich Text Box Inline Image
 - [x] Rich Text Box - URL Resolver
 - [x] Rich Text Box - Component Resolver (Video)
@@ -27,3 +28,7 @@ Following is the feature list explored and integrated
 
 #### Deploy 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/pritisolanki/test-app-kontent.git)
+
+
+### Demo
+(Sample App)[https://fastidious-kringle-0fbc1c.netlify.app/index.html]
