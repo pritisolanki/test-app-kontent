@@ -22,6 +22,8 @@ Following is the feature list explored and integrated
 - Custom Element (vimeo video)
 - [x] Delivery API - depthParams 
 
+#### References
+(Kontent.ai JS Delivery SDK)[https://github.com/kontent-ai/delivery-sdk-js]
 
 #### Deploy 
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/pritisolanki/test-app-kontent.git)
