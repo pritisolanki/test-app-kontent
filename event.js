@@ -2,8 +2,8 @@
 const articleList = addToElementbyId('div', 'article-list', app);
 // Function for adding elements to DOM with specific attributes
 const createElement = (elementType, classToAdd, attribute, attributeValue) => {
-  const element = document.createElement(elementType);
-  element.setAttribute('class', classToAdd);
+const element = document.createElement(elementType);
+element.setAttribute('class', classToAdd);
 
   // Set attribute value based on the attribute required
   attribute === 'href'
