@@ -187,7 +187,6 @@ deliveryClient
         
       }
       else if(page == 'speaker.html'){
-        //getSpeaker = (speakerName)
         agendaTitle.innerText='Industry Experts';
         const speakerMainDivEle = document.getElementById('speakerMainDiv')
         industrySpeakerList = fetchLinkedItemByType('speaker')
