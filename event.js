@@ -143,8 +143,8 @@ deliveryClient
 
       const agendaTitle = document.getElementById('agendaTitle');
       agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
-  
-      if(page == 'index.html')
+  console.log(page)
+      if(page == 'index.html' || page=="")
       {
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
         mainDivEle = document.getElementById('mainDiv')
