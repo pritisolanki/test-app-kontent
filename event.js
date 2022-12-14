@@ -35,7 +35,6 @@ deliveryClient
   .orderByAscending('elements.title')
   .toPromise()
   .then(response => {
-    console.log(response)
     const linkedItems = window['kontentDelivery'].linkedItemsHelper.convertLinkedItemsToArray(response.data.linkedItems)
 
     const fetchLinkedItem = (contentItem) => {
