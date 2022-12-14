@@ -143,14 +143,14 @@ deliveryClient
 
       const agendaTitle = document.getElementById('agendaTitle');
       agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
-  console.log(page)
-      if(page == 'index.html' || page=="")
+      console.log(page)
+      if(page == 'index.html' || page == "")
       {
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
         mainDivEle = document.getElementById('mainDiv')
         mainDivEle.appendChild(introElement)
 
-      }else if(page == 'agenda.html'){
+      }else if(page == 'agenda.html' || page == 'agenda'){
         //agenda
         const agendaHeroShotImageEle = document.getElementById('agendaHeroShotImage')
 
@@ -185,7 +185,7 @@ deliveryClient
         }
         
       }
-      else if(page == 'speaker.html'){
+      else if(page == 'speaker.html' || page == 'speaker'){
         agendaTitle.innerText='Industry Experts';
         const speakerMainDivEle = document.getElementById('speakerMainDiv')
         industrySpeakerList = fetchLinkedItemByType('speaker')
