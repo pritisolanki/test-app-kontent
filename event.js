@@ -143,12 +143,18 @@ deliveryClient
 
       const agendaTitle = document.getElementById('agendaTitle');
       agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
-      console.log(page)
+      
       if(page == 'index.html' || page == "")
       {
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
         mainDivEle = document.getElementById('mainDiv')
         mainDivEle.appendChild(introElement)
+
+        const figureEle = document.querySelector("[data-asset-id='31120053-5f7a-42e8-9d6d-43e34f410830']")
+        const ChildImg = figureEle.childNodes[0]
+        const oldUrl = figureEle.childNodes[0].src
+        const newURL = oldUrl+'?w=0.1&height=0.1*f=fit'
+        ChildImg.setAttribute('src',newURL)
 
       }else if(page == 'agenda.html' || page == 'agenda'){
         //agenda
