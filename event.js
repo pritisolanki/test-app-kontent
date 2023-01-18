@@ -104,6 +104,15 @@ deliveryClient
     const fetchSponsor = (sponsorItem) =>{
       return (`<p align="center"><a href="${response.data.linkedItems[sponsorItem].elements.url.value}"><img src="${response.data.linkedItems[sponsorItem].elements.logo.value[0].url}" width="200" height="200"></a></p>`)
     }
+
+    const resolveJumpHref = (tagElement,found)=>{
+      itemText = found.input.replace(found[0],'');
+      const macro = found[0];
+
+      const anchor = macro.replace('{#', '').replace('#}', '');
+      tagElement.setAttribute("id",`${anchor}`);
+      tagElement.innerText=itemText
+    }
     const richTextElement = response.data.items[0].elements.intro_message;
     const resolvedRichTextObject = window['kontentDelivery'].createRichTextHtmlResolver().resolveRichText({
           element: richTextElement,
@@ -141,21 +150,37 @@ deliveryClient
       let mainTitle = document.getElementById('main-title');
       mainTitle.innerText = item.system.name
 
+      console.log(item)
       const agendaTitle = document.getElementById('agendaTitle');
       agendaTitle.innerText=item.elements.agenda.linkedItems[0].elements.day.value
       
       if(page == 'index.html' || page == "")
       {
         const introElement = createElement('div','jumbotron','innerHTML',resolveIntroMessage)
+        console.log(introElement);
         mainDivEle = document.getElementById('mainDiv')
         mainDivEle.appendChild(introElement)
-
+        h3Tag = document.getElementsByTagName('h3')
+        for(h3Item of h3Tag){
+          const found = h3Item.innerText.match(/{#[^#]+#}/);
+          if (found) 
+          {
+            resolveJumpHref(h3Item,found)
+          }
+        }
+        h4Tag = document.getElementsByTagName('h4')
+        for(h4Item of h4Tag){
+          const found = h4Item.innerText.match(/{#[^#]+#}/);
+          if (found) 
+          {
+            resolveJumpHref(h4Item,found)
+          }
+        }
         const figureEle = document.querySelector("[data-asset-id='31120053-5f7a-42e8-9d6d-43e34f410830']")
         const ChildImg = figureEle.childNodes[0]
         const oldUrl = figureEle.childNodes[0].src
         const newURL = oldUrl+'?w=0.1&height=0.1*f=fit'
         ChildImg.setAttribute('src',newURL)
-
       }else if(page == 'agenda.html' || page == 'agenda'){
         //agenda
         const agendaHeroShotImageEle = document.getElementById('agendaHeroShotImage')
